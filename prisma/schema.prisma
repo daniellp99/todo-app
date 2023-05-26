@@ -16,5 +16,5 @@ model Todo {
   updatedAt DateTime @updatedAt
 
   title    String
-  complete Boolean
+  complete Boolean? @default(false)
 }
