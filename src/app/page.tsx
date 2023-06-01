@@ -9,6 +9,12 @@ async function getTodos() {
   return todos;
 }
 
+async function toggleTodo(id: string, complete: boolean) {
+  "use server";
+
+  await prisma.todo.update({ where: { id }, data: { complete } });
+}
+
 export default async function Home() {
   const todos = await getTodos();
   return (
@@ -24,7 +30,13 @@ export default async function Home() {
       </header>
       <ul className="pl-4">
         {todos.map((todo) => (
-          <TodoItem key={todo.id} id={todo.id} title={todo.title} />
+          <TodoItem
+            key={todo.id}
+            id={todo.id}
+            title={todo.title}
+            complete={todo.complete}
+            toggleTodo={toggleTodo}
+          />
         ))}
       </ul>
     </>
