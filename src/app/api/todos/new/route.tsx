@@ -6,7 +6,8 @@ export async function POST(request: Request) {
   const res = await request.json();
   const data = TodoRequestValidator.safeParse(res);
   if (!data.success) {
-    return NextResponse.json(data.error.format()._errors, { status: 422 });
+    const formattedErrors = data.error.format();
+    return NextResponse.json(formattedErrors, { status: 422 });
   }
   const { title, complete } = data.data;
 
