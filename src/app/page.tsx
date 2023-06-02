@@ -2,10 +2,10 @@ import TodoItem from "@/components/TodoItem";
 import { prisma } from "@/db";
 import Link from "next/link";
 
-export const revalidate = 36; // revalidate every hour
+export const revalidate = 36;
 
 async function getTodos() {
-  const todos = await prisma.todo.findMany();
+  const todos = await prisma.todo.findMany({ orderBy: { createdAt: "desc" } });
   return todos;
 }
 
